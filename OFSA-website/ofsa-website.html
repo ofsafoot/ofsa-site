@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OFSA - Old Football Stars of Abomey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* ----------------------
+       THEME VARIABLES (ORIGINALES)
+       ---------------------- */
+    :root{
+      --g-900: #08240f; /* very dark green for accents */
+      --g-700: #0e5b2e; /* primary dark green */
+      --g-500: #1ea941; /* primary green */
+      --g-300: #6fe993; /* light green */
+      --g-accent: #39FF14; /* neon accent */
+      --white: #ffffff;
+      --black: #000000;
+      --bg: linear-gradient(180deg,var(--white), rgba(30,169,65,0.03));
+      --text: var(--black);
+      --muted: rgba(0,0,0,0.6);
+      --glass: rgba(255,255,255,0.06);
+      --card-glow: 0 20px 50px rgba(30,169,65,0.08);
+      --hero-img: url('images/hero-light.jpg');
+    }
+    [data-theme="dark"]{
+      --g-900: #001508;
+      --g-700: #F9FAF4;
+      --g-500: #0fa24a;
+      --g-300: #28d67b;
+      --g-accent: #39FF14;
+      --white: #ffffff;
+      --black: #000000;
+      --bg: linear-gradient(180deg, #000000, rgba(2,16,10,0.6));
+      --text: #e9ffee;
+      --muted: rgba(255,255,255,0.6);
+      --glass: rgba(0,0,0,0.26);
+      --card-glow: 0 20px 50px rgba(30,169,65,0.18);
+      --hero-img: url('images/hero-dark.jpg');
+    }
+
+    /* ----------------------
+       base
+       ---------------------- */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.5;
+      transition:background 350ms ease,color 350ms ease;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+    /* ----------------------
+       header
+       ---------------------- */
+    header{
+      position:fixed;left:0;right:0;top:0;z-index:60;
+      backdrop-filter: blur(6px);
+      background:linear-gradient(180deg,rgba(255,255,255,0.05),transparent);
+      border-bottom:1px solid rgba(0,0,0,0.06);
+      transition:background .3s, border-color .3s;
+    }
+    [data-theme="dark"] header{background:linear-gradient(180deg,rgba(0,0,0,0.22),transparent);border-bottom:1px solid rgba(255,255,255,0.03)}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .logo-wrap{display:flex;align-items:center;gap:14px}
+    .logo-img{width:96px;height:96px;object-fit:contain;border-radius:12px;border:3px solid rgba(0,0,0,0.08);background:transparent;box-shadow:0 8px 30px rgba(30,169,65,0.08)}
+    .brand{font-weight:800;letter-spacing:1px;font-size:18px}
+    .nav-links{display:flex;gap:12px;align-items:center}
+    .nav-links a{padding:8px 12px;border-radius:999px;font-weight:600;transition:transform 220ms ease,box-shadow 220ms}
+    .nav-links a:hover{transform:translateY(-4px);box-shadow:var(--card-glow)}
+
+    /* theme toggle */
+    .controls{display:flex;gap:8px;align-items:center}
+    .theme-toggle{background:linear-gradient(90deg,var(--g-500),var(--g-700));border:none;color:var(--white);padding:8px 12px;border-radius:999px;font-weight:700;cursor:pointer}
+    .cta{background:transparent;border:2px solid var(--g-500);padding:8px 14px;border-radius:999px;font-weight:700}
+
+    /* ----------------------
+       hero
+       ---------------------- */
+    .hero{
+      height:85vh;min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;padding:0 20px;margin-top:86px;overflow:hidden;
+      background:var(--hero-img) center center/cover no-repeat;
+      transition:background 450ms ease;
+      will-change:transform;
+    }
+    .hero::before{
+      content:'';position:absolute;inset:-20% -10% auto -10%;height:120%;background:radial-gradient(closest-side,rgba(30,169,65,0.12),transparent 40%);
+      transform:rotate(-8deg) translateZ(0);filter:blur(40px);opacity:0.9;pointer-events:none
+    }
+    .hero::after{ /* overlay for legibility; lighter in light mode */
+      content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.22));
+      pointer-events:none;
+    }
+    .hero-grid{display:grid;gap:20px;align-items:center;grid-template-columns:1fr;max-width:1100px;z-index:2}
+    .hero-title{font-size:clamp(28px,6vw,64px);font-weight:800;line-height:0.98;margin-bottom:8px;letter-spacing:-1px;background:linear-gradient(90deg,var(--g-500),var(--g-700));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .hero-sub{font-size:clamp(14px,1.8vw,20px);color:var(--muted);margin-bottom:18px}
+    .hero-actions{display:flex;gap:14px;justify-content:center}
+    .btn-ghost{border:2px solid rgba(0,0,0,0.08);padding:12px 20px;border-radius:999px;font-weight:700;background:transparent}
+    .btn-primary{background:linear-gradient(90deg,var(--g-500),var(--g-700));padding:12px 24px;border-radius:999px;color:var(--white);font-weight:800;border:none;box-shadow:0 12px 40px rgba(30,169,65,0.18)}
+
+    /* animated chevrons */
+    .chevrons{display:inline-block;margin-left:10px;vertical-align:middle}
+    .chevrons span{display:block;height:6px;width:18px;border-radius:6px;background:rgba(255,255,255,0.9);opacity:0.9;margin:3px 0;transform-origin:left;animation:move 1s infinite}
+    .chevrons span:nth-child(2){animation-delay:0.12s}
+    .chevrons span:nth-child(3){animation-delay:0.24s}
+    @keyframes move{0%{transform:translateX(-6px);opacity:0.2}50%{transform:translateX(0);opacity:1}100%{transform:translateX(6px);opacity:0.2}}
+
+    /* hero card */
+    .hero-card{margin-top:12px;padding:18px;border-radius:16px;box-shadow:var(--card-glow);display:flex;gap:18px;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(30,169,65,0.02));backdrop-filter: blur(6px)}
+
+    /* ----------------------
+       sections
+       ---------------------- */
+    section{padding:80px 0}
+    .section-title{display:flex;align-items:center;gap:12px;justify-content:center;font-weight:800;color:var(--g-700);font-size:26px;margin-bottom:28px}
+
+    .about-grid{display:grid;grid-template-columns:1fr 480px;gap:36px;align-items:center}
+    .about-text p{margin-bottom:14px;color:var(--text)}
+    .about-image{height:340px;border-radius:18px;background:linear-gradient(135deg,var(--g-300),rgba(30,169,65,0.08));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .about-image .logo-space{width:80%;height:80%;display:flex;align-items:center;justify-content:center}
+    .about-image .logo-space img{max-width:100%;max-height:100%}
+
+    /* tournament grid */
+    .tournament-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+    .card{padding:20px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.02));box-shadow:var(--card-glow);transition:transform 400ms cubic-bezier(.2,.9,.2,1);border:1px solid rgba(0,0,0,0.06)}
+    .card:hover{transform:translateY(-12px) rotateX(6deg)}
+    .card h3{color:var(--g-accent);margin-bottom:8px}
+
+    /* stats */
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px}
+    .stat{padding:22px;border-radius:12px;text-align:center;background:linear-gradient(180deg, rgba(30,169,65,0.04), rgba(0,0,0,0.02));}
+    .stat-number{font-size:34px;font-weight:800;color:var(--g-500)}
+
+    /* contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 420px;gap:28px}
+    .contact-info{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(30,169,65,0.03), rgba(255,255,255,0.01));border-left:4px solid var(--g-500)}
+    .contact-form{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(255,255,255,0.02));}
+    .form-group{margin-bottom:12px}
+    label{display:block;margin-bottom:6px;font-weight:700;color:var(--g-700)}
+    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:transparent;color:var(--text);min-height:46px}
+    textarea{min-height:120px}
+    .submit{display:inline-block;margin-top:8px}
+
+    /* footer */
+    footer{padding:40px 0;border-top:2px solid var(--g-700);margin-top:20px}
+    .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .footer-section h4{color:var(--g-500)}
+
+    /* responsive */
+    @media(max-width:980px){
+      .about-grid{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      header{padding:8px 0}
+    }
+    @media(max-width:640px){
+      .nav-links{display:none}
+      .hero{height:70vh;padding:40px 12px}
+    }
+
+    /* reveal animations */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity 600ms ease,transform 600ms cubic-bezier(.2,.9,.2,1)}
+    .reveal.show{opacity:1;transform:none}
+
+    /* ripple */
+    .ripple{position:absolute;border-radius:50%;transform:scale(0);opacity:0.6;pointer-events:none}
+
+    /* card tilt base */
+    .card{transform-style:preserve-3d;will-change:transform}
+
+    /* reduce motion */
+    @media (prefers-reduced-motion:reduce){
+      *{animation:none!important;transition:none!important}
+    }
+
+    /* photo slots sizes */
+    .about-photos, .stats-photos, .contact-photos { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+    .about-photos img, .stats-photos img, .contact-photos img { width:100%; max-width:320px; height:200px; object-fit:cover; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.15); }
+  </style>
+</head>
+<body data-theme="light">
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo-wrap">
+          <img src="images/LOGO.png" alt="Logo OFSA" class="logo-img">
+          <div>
+            <div class="brand">OFSA</div>
+            <div style="font-size:12px;color:var(--muted)">Old Football Stars of Abomey</div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="nav-links" aria-hidden="true">
+            <a href="#accueil">Accueil</a>
+            <a href="#about">À Propos</a>
+            <a href="#tournament">Tournoi</a>
+            <a href="#stats">Statistiques</a>
+            <a href="#contact">Contact</a>
+          </div>
+
+          <button id="themeToggle" class="theme-toggle" title="Changer le thème">🌗</button>
+          <a href="#tournament" class="cta">Découvrir</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="accueil" class="hero">
+      <div class="hero-grid container reveal">
+        <div>
+          <!-- morphing SVG preserved -->
+          <svg aria-hidden="true" width="120" height="120" viewBox="0 0 120 120" style="display:block;margin:0 auto 12px;" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g" x1="0" x2="1">
+                <stop offset="0" stop-color="var(--g-300)" />
+                <stop offset="1" stop-color="var(--g-700)" />
+              </linearGradient>
+            </defs>
+            <path id="morph" fill="url(#g)" d="M60 10 C85 10 105 30 105 55 C105 85 80 105 60 105 C40 105 15 85 15 55 C15 30 35 10 60 10 Z">
+              <animate attributeName="d" dur="6s" repeatCount="indefinite" values="M60 10 C85 10 105 30 105 55 C105 85 80 105 60 105 C40 105 15 85 15 55 C15 30 35 10 60 10 Z; M60 8 C92 18 106 42 98 64 C90 88 68 100 60 102 C52 100 30 88 22 64 C14 42 28 18 60 8 Z; M60 12 C82 6 106 24 102 52 C98 80 74 106 60 104 C46 106 22 80 18 52 C14 24 38 6 60 12 Z; M60 10 C85 10 105 30 105 55 C105 85 80 105 60 105 C40 105 15 85 15 55 C15 30 35 10 60 10 Z"/>
+            </path>
+          </svg>
+
+          <h1 class="hero-title">Old Football Stars of Abomey</h1>
+          <p class="hero-sub">Développer le football jeune au Bénin</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="#tournament">Découvrir nos Tournois <span class="chevrons" aria-hidden="true"><span></span><span></span><span></span></span></a>
+            <a class="btn-ghost" href="#contact">Nous Contacter</a>
+          </div>
+          <div style="width:80px;height:48px;margin-left:12px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(0,0,0,0.04)"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="reveal">
+      <div class="container">
+        <h2 class="section-title">À Propos d'OFSA</h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>L'Old Football Stars of Abomey (OFSA) est une association dynamique d'anciens footballeurs dédiée à la promotion et au développement du football jeune au Bénin. Basée dans la ville de Cotonou, notre association s'engage à former la prochaine génération de talents footballistiques.</p>
+            <p>Depuis notre création, nous organisons des événements sportifs de qualité, notamment notre tournoi phare "Football Talents Plus" qui rassemble les meilleurs jeunes talents U-15 de la région. Notre mission est de créer des opportunités pour les jeunes footballeurs tout en préservant l'esprit sportif et les valeurs du football.</p>
+            <p>Nous croyons fermement que le sport est un vecteur essentiel de développement personnel et social. C'est pourquoi nous nous efforçons de mettre en place des programmes qui favorisent l'épanouissement des jeunes à travers le football.</p>
+            <div class="about-photos">
+              <img src="images/about1.jpg" alt="Jeunes joueurs">
+             <!-- <img src="images/about2.jpg" alt="Stade Abomey">-->
+            </div>
+          </div>
+          <div class="about-image" aria-hidden="true">
+            <div class="logo-space"><img src="images/LOGO.png" alt="Logo OFSA espace" /></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOURNAMENT -->
+    <section id="tournament" class="reveal">
+      <div class="container">
+        <h2 class="section-title">Nos Tournois</h2>
+        <div class="tournament-grid">
+          <article class="card">
+            <h3>Football Talents Plus</h3>
+            <p>Notre tournoi phare destiné aux jeunes de moins de 15 ans. Une compétition de haut niveau qui se déroule chaque année en décembre au stade de Goho d'Abomey. L'édition 2024 a marqué la 6ème édition de cet événement majeur.</p>
+          </article>
+
+          <article class="card">
+            <h3>Innovation Gaming</h3>
+            <p>En partenariat avec Moov Africa Bénin, nous organisons des tournois de gaming lors de nos compétitions, permettant aux jeunes footballeurs de démontrer leurs talents sur console entre les matchs.</p>
+          </article>
+
+          <article class="card">
+            <h3>Formation & Développement</h3>
+            <p>Nos programmes de formation continue permettent aux jeunes talents de développer leurs compétences techniques et tactiques tout au long de l'année, avec l'encadrement d'anciens joueurs expérimentés.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section id="stats" class="reveal">
+      <div class="container">
+        <h2 class="section-title">Nos Réalisations</h2>
+        <div class="stats-grid">
+          <div class="stat">
+            <div class="stat-number">6</div>
+            <div class="stat-label">Éditions du Tournoi</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">200+</div>
+            <div class="stat-label">Jeunes Suivis</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">12</div>
+            <div class="stat-label">Équipes Participantes</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Engagement</div>
+          </div>
+        </div>
+        <div class="stats-photos">
+          <img src="images/stats1.jpg" alt="Public au stade">
+          <img src="images/stats2.jpg" alt="Jeunes joueurs motivés">
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="reveal">
+      <div class="container">
+        <h2 class="section-title">Contactez-Nous</h2>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h3>Informations de Contact</h3>
+            <p><strong>Adresse :</strong> Cotonou, Département du Littoral, Bénin</p>
+            <p><strong>Email :</strong> ofsafoot19@gmail.com</p>
+            <p><strong>Téléphone :</strong>+229 96 12 33 14 / +229 96 56 56 00</p>
+            <p><strong>Lieu des Tournois :</strong> Stade Omnisport de Goho, Abomey</p>
+            <p>Rejoignez-nous dans notre mission de développement du football jeune au Bénin. Que vous soyez un jeune talent, un parent, ou un passionné de football, nous sommes là pour vous accompagner.</p>
+            <div class="contact-photos">
+              <img src="images/contact1.jpg" alt="Stade de Goho">
+              <img src="images/contact2.jpg" alt="Jeunes OFSA">
+            </div>
+          </div>
+
+          <div class="contact-form">
+            <form id="contactForm">
+              <div class="form-group">
+                <label for="name">Nom Complet</label>
+                <input type="text" id="name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Téléphone</label>
+                <input type="tel" id="phone" name="phone">
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn-primary submit">Envoyer le Message</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>OFSA</h4>
+          <p>Old Football Stars of Abomey - Passion et dévouement au service du football jeune.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Site web">🌐</a>
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="TikTok">🎵</a>
+            <a href="#" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>Liens Rapides</h4>
+          <p><a href="#accueil">Accueil</a></p>
+          <p><a href="#about">À Propos</a></p>
+          <p><a href="#tournament">Tournois</a></p>
+          <p><a href="#contact">Contact</a></p>
+        </div>
+        <div class="footer-section">
+          <h4>Partenaires</h4>
+          <p>Moov Africa Bénin</p>
+          <p>Stade de Goho</p>
+          <p>Mairie d'Abomey</p>
+        </div>
+      </div>
+      <p style="margin-top:18px">&copy; 2024 OFSA - Old Football Stars of Abomey. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ----------------------
+    // THEME TOGGLE (avec sauvegarde)
+    // ----------------------
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.body;
+    function setTheme(theme){
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem('ofsa_theme', theme);
+      themeToggle.textContent = theme === 'dark' ? '🌞' : '🌗';
+    }
+    themeToggle.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+    const saved = localStorage.getItem('ofsa_theme') || 'light';
+    setTheme(saved);
+
+    // ----------------------
+    // REVEAL ON SCROLL (IntersectionObserver)
+    // ----------------------
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('show');
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // ----------------------
+    // CONTACT FORM
+    // ----------------------
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', e=>{
+      e.preventDefault();
+      alert('Merci pour votre message !');
+      contactForm.reset();
+    });
+
+    // ----------------------
+    // HERO PARALLAX (mouse)
+    // ----------------------
+    const hero = document.querySelector('.hero');
+    if(hero){
+      hero.addEventListener('mousemove', (ev)=>{
+        const rect = hero.getBoundingClientRect();
+        const x = (ev.clientX - rect.left) / rect.width - 0.5;
+        const y = (ev.clientY - rect.top) / rect.height - 0.5;
+        hero.style.transform = `translate3d(${x*6}px,${y*4}px,0)`;
+        clearTimeout(hero.dataset.tout);
+        hero.dataset.tout = setTimeout(()=>hero.style.transform='none',1200);
+      });
+    }
+
+    // ----------------------
+    // RIPPLE ON PRIMARY BUTTONS
+    // ----------------------
+    document.addEventListener('click', function(e){
+      const btn = e.target.closest('.btn-primary, .btn-ghost, .cta');
+      if(!btn) return;
+      const rect = btn.getBoundingClientRect();
+      const r = document.createElement('span');
+      r.className='ripple';
+      const size = Math.max(rect.width, rect.height)*1.6;
+      r.style.width = r.style.height = size + 'px';
+      r.style.left = (e.clientX - rect.left - size/2) + 'px';
+      r.style.top = (e.clientY - rect.top - size/2) + 'px';
+      r.style.background = 'rgba(255,255,255,0.12)';
+      r.style.transition = 'transform 600ms cubic-bezier(.2,.9,.2,1),opacity 600ms';
+      btn.style.position = 'relative';
+      btn.appendChild(r);
+      requestAnimationFrame(()=>{r.style.transform='scale(1)'; r.style.opacity='0';});
+      setTimeout(()=>r.remove(),700);
+    });
+
+    // ----------------------
+    // CARD TILT MICRO-INTERACTION
+    // ----------------------
+    document.querySelectorAll('.card').forEach(card=>{
+      card.addEventListener('mousemove', e=>{
+        const rect=card.getBoundingClientRect();
+        const x = (e.clientX - rect.left)/rect.width - 0.5;
+        const y = (e.clientY - rect.top)/rect.height - 0.5;
+        const rotX = (-y)*8; const rotY = x*8;
+        card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(6px)`;
+      });
+      card.addEventListener('mouseleave', ()=>{card.style.transform='none'});
+    });
+
+    // ----------------------
+    // accessibility: keyboard support
+    // ----------------------
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') document.querySelector('.nav-links')?.blur?.();
+    });
+  </script>
+</body>
+</html>
