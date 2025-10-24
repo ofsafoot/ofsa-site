@@ -6,15 +6,12 @@
   <title>OFSA - Old Football Stars of Abomey</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    /* ----------------------
-       THEME VARIABLES (ORIGINALES)
-       ---------------------- */
     :root{
-      --g-900: #08240f; /* very dark green for accents */
-      --g-700: #0e5b2e; /* primary dark green */
-      --g-500: #1ea941; /* primary green */
-      --g-300: #6fe993; /* light green */
-      --g-accent: #39FF14; /* neon accent */
+      --g-900: #08240f;
+      --g-700: #0e5b2e;
+      --g-500: #1ea941;
+      --g-300: #6fe993;
+      --g-accent: #39FF14;
       --white: #ffffff;
       --black: #000000;
       --bg: linear-gradient(180deg,var(--white), rgba(30,169,65,0.03));
@@ -40,9 +37,224 @@
       --hero-img: url('images/hero-dark.jpg');
     }
 
-    /* ----------------------
-       base
-       ---------------------- */
+    .floating-bubbles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(30,169,65,0.08), rgba(30,169,65,0.03));
+      animation: float 15s infinite linear;
+      opacity: 0.6;
+    }
+
+    .bubble:nth-child(1) { width: 8px; height: 8px; left: 10%; animation-delay: 0s; animation-duration: 12s; }
+    .bubble:nth-child(2) { width: 12px; height: 12px; left: 20%; animation-delay: 2s; animation-duration: 16s; }
+    .bubble:nth-child(3) { width: 6px; height: 6px; left: 35%; animation-delay: 4s; animation-duration: 14s; }
+    .bubble:nth-child(4) { width: 10px; height: 10px; left: 50%; animation-delay: 6s; animation-duration: 18s; }
+    .bubble:nth-child(5) { width: 14px; height: 14px; left: 65%; animation-delay: 8s; animation-duration: 13s; }
+    .bubble:nth-child(6) { width: 7px; height: 7px; left: 80%; animation-delay: 10s; animation-duration: 15s; }
+    .bubble:nth-child(7) { width: 9px; height: 9px; left: 90%; animation-delay: 12s; animation-duration: 17s; }
+    .bubble:nth-child(8) { width: 11px; height: 11px; left: 15%; animation-delay: 1s; animation-duration: 19s; }
+    .bubble:nth-child(9) { width: 8px; height: 8px; left: 75%; animation-delay: 3s; animation-duration: 11s; }
+    .bubble:nth-child(10) { width: 13px; height: 13px; left: 40%; animation-delay: 5s; animation-duration: 20s; }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      5% {
+        opacity: 0.6;
+      }
+      95% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    [data-theme="dark"] .bubble {
+      background: radial-gradient(circle at 30% 30%, rgba(30,169,65,0.12), rgba(30,169,65,0.04));
+    }
+
+    .firefly {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--g-accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--g-accent), 0 0 12px var(--g-300);
+      animation: fireflyFloat 8s infinite ease-in-out;
+      opacity: 0;
+    }
+
+    @keyframes fireflyFloat {
+      0% {
+        transform: translate(0, 0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      25% {
+        transform: translate(30px, -40px);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translate(-20px, -80px);
+        opacity: 1;
+      }
+      75% {
+        transform: translate(40px, -120px);
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.3;
+      }
+      100% {
+        transform: translate(-10px, -160px);
+        opacity: 0;
+      }
+    }
+
+    .logo-main {
+      animation: logoFloat 4s ease-in-out infinite;
+      transform-origin: center;
+      will-change: transform;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+      25% { transform: translateY(-8px) scale(1.02) rotate(1deg); }
+      50% { transform: translateY(-4px) scale(1.01) rotate(0deg); }
+      75% { transform: translateY(-12px) scale(1.03) rotate(-1deg); }
+    }
+
+    .logo-main:hover {
+      animation: logoHover 0.6s ease-out forwards;
+    }
+
+    @keyframes logoHover {
+      0% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(5deg); }
+      100% { transform: scale(1.05) rotate(0deg); }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 0.8s ease-out forwards;
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+
+    @keyframes slideInLeft {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .slide-in-right {
+      animation: slideInRight 0.8s ease-out forwards;
+      opacity: 0;
+      transform: translateX(50px);
+    }
+
+    @keyframes slideInRight {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .scale-in {
+      animation: scaleIn 0.6s ease-out forwards;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    @keyframes scaleIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .bounce-in {
+      animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+      opacity: 0;
+      transform: scale(0.3);
+    }
+
+    @keyframes bounceIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .stat-number {
+      animation: countUp 2s ease-out forwards;
+    }
+
+    @keyframes countUp {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .chevrons-enhanced {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+
+    .btn-primary, .btn-ghost {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before, .btn-ghost::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -100%; }
+      50%, 100% { left: 100%; }
+    }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -55,13 +267,11 @@
       line-height:1.5;
       transition:background 350ms ease,color 350ms ease;
       -webkit-font-smoothing:antialiased;
+      position: relative;
     }
     a{color:inherit;text-decoration:none}
     .container{max-width:1200px;margin:0 auto;padding:0 20px}
 
-    /* ----------------------
-       header
-       ---------------------- */
     header{
       position:fixed;left:0;right:0;top:0;z-index:60;
       backdrop-filter: blur(6px);
@@ -78,14 +288,10 @@
     .nav-links a{padding:8px 12px;border-radius:999px;font-weight:600;transition:transform 220ms ease,box-shadow 220ms}
     .nav-links a:hover{transform:translateY(-4px);box-shadow:var(--card-glow)}
 
-    /* theme toggle */
     .controls{display:flex;gap:8px;align-items:center}
     .theme-toggle{background:linear-gradient(90deg,var(--g-500),var(--g-700));border:none;color:var(--white);padding:8px 12px;border-radius:999px;font-weight:700;cursor:pointer}
     .cta{background:transparent;border:2px solid var(--g-500);padding:8px 14px;border-radius:999px;font-weight:700}
 
-    /* ----------------------
-       hero
-       ---------------------- */
     .hero{
       height:85vh;min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;padding:0 20px;margin-top:86px;overflow:hidden;
       background:var(--hero-img) center center/cover no-repeat;
@@ -96,7 +302,7 @@
       content:'';position:absolute;inset:-20% -10% auto -10%;height:120%;background:radial-gradient(closest-side,rgba(30,169,65,0.12),transparent 40%);
       transform:rotate(-8deg) translateZ(0);filter:blur(40px);opacity:0.9;pointer-events:none
     }
-    .hero::after{ /* overlay for legibility; lighter in light mode */
+    .hero::after{
       content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.22));
       pointer-events:none;
     }
@@ -107,19 +313,14 @@
     .btn-ghost{border:2px solid rgba(0,0,0,0.08);padding:12px 20px;border-radius:999px;font-weight:700;background:transparent}
     .btn-primary{background:linear-gradient(90deg,var(--g-500),var(--g-700));padding:12px 24px;border-radius:999px;color:var(--white);font-weight:800;border:none;box-shadow:0 12px 40px rgba(30,169,65,0.18)}
 
-    /* animated chevrons */
     .chevrons{display:inline-block;margin-left:10px;vertical-align:middle}
     .chevrons span{display:block;height:6px;width:18px;border-radius:6px;background:rgba(255,255,255,0.9);opacity:0.9;margin:3px 0;transform-origin:left;animation:move 1s infinite}
     .chevrons span:nth-child(2){animation-delay:0.12s}
     .chevrons span:nth-child(3){animation-delay:0.24s}
     @keyframes move{0%{transform:translateX(-6px);opacity:0.2}50%{transform:translateX(0);opacity:1}100%{transform:translateX(6px);opacity:0.2}}
 
-    /* hero card */
     .hero-card{margin-top:12px;padding:18px;border-radius:16px;box-shadow:var(--card-glow);display:flex;gap:18px;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(30,169,65,0.02));backdrop-filter: blur(6px)}
 
-    /* ----------------------
-       sections
-       ---------------------- */
     section{padding:80px 0}
     .section-title{display:flex;align-items:center;gap:12px;justify-content:center;font-weight:800;color:var(--g-700);font-size:26px;margin-bottom:28px}
 
@@ -129,18 +330,15 @@
     .about-image .logo-space{width:80%;height:80%;display:flex;align-items:center;justify-content:center}
     .about-image .logo-space img{max-width:100%;max-height:100%}
 
-    /* tournament grid */
     .tournament-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
     .card{padding:20px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.02));box-shadow:var(--card-glow);transition:transform 400ms cubic-bezier(.2,.9,.2,1);border:1px solid rgba(0,0,0,0.06)}
     .card:hover{transform:translateY(-12px) rotateX(6deg)}
     .card h3{color:var(--g-accent);margin-bottom:8px}
 
-    /* stats */
     .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px}
     .stat{padding:22px;border-radius:12px;text-align:center;background:linear-gradient(180deg, rgba(30,169,65,0.04), rgba(0,0,0,0.02));}
     .stat-number{font-size:34px;font-weight:800;color:var(--g-500)}
 
-    /* contact */
     .contact-grid{display:grid;grid-template-columns:1fr 420px;gap:28px}
     .contact-info{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(30,169,65,0.03), rgba(255,255,255,0.01));border-left:4px solid var(--g-500)}
     .contact-form{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(255,255,255,0.02));}
@@ -150,12 +348,10 @@
     textarea{min-height:120px}
     .submit{display:inline-block;margin-top:8px}
 
-    /* footer */
     footer{padding:40px 0;border-top:2px solid var(--g-700);margin-top:20px}
     .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
     .footer-section h4{color:var(--g-500)}
 
-    /* responsive */
     @media(max-width:980px){
       .about-grid{grid-template-columns:1fr}
       .contact-grid{grid-template-columns:1fr}
@@ -166,32 +362,41 @@
       .hero{height:70vh;padding:40px 12px}
     }
 
-    /* reveal animations */
     .reveal{opacity:0;transform:translateY(18px);transition:opacity 600ms ease,transform 600ms cubic-bezier(.2,.9,.2,1)}
     .reveal.show{opacity:1;transform:none}
 
-    /* ripple */
     .ripple{position:absolute;border-radius:50%;transform:scale(0);opacity:0.6;pointer-events:none}
 
-    /* card tilt base */
     .card{transform-style:preserve-3d;will-change:transform}
 
-    /* reduce motion */
     @media (prefers-reduced-motion:reduce){
       *{animation:none!important;transition:none!important}
+      .floating-bubbles{display:none}
     }
 
-    /* photo slots sizes */
     .about-photos, .stats-photos, .contact-photos { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
     .about-photos img, .stats-photos img, .contact-photos img { width:100%; max-width:320px; height:200px; object-fit:cover; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.15); }
   </style>
 </head>
 <body data-theme="light">
 
+  <div class="floating-bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
   <header>
     <div class="container">
       <nav>
-        <div class="logo-wrap">
+        <div class="logo-wrap fade-in-up">
           <img src="images/LOGO.png" alt="Logo OFSA" class="logo-img">
           <div>
             <div class="brand">OFSA</div>
@@ -200,7 +405,7 @@
         </div>
 
         <div class="controls">
-          <div class="nav-links" aria-hidden="true">
+          <div class="nav-links slide-in-right" aria-hidden="true">
             <a href="#accueil">Accueil</a>
             <a href="#about">À Propos</a>
             <a href="#tournament">Tournoi</a>
@@ -208,20 +413,18 @@
             <a href="#contact">Contact</a>
           </div>
 
-          <button id="themeToggle" class="theme-toggle" title="Changer le thème">🌗</button>
-          <a href="#tournament" class="cta">Découvrir</a>
+          <button id="themeToggle" class="theme-toggle bounce-in" title="Changer le thème">🌗</button>
+          <a href="#tournament" class="cta scale-in">Découvrir</a>
         </div>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- HERO -->
     <section id="accueil" class="hero">
       <div class="hero-grid container reveal">
         <div>
-          <!-- morphing SVG preserved -->
-          <svg aria-hidden="true" width="120" height="120" viewBox="0 0 120 120" style="display:block;margin:0 auto 12px;" xmlns="http://www.w3.org/2000/svg">
+          <svg class="logo-main" aria-hidden="true" width="120" height="120" viewBox="0 0 120 120" style="display:block;margin:0 auto 12px;" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="g" x1="0" x2="1">
                 <stop offset="0" stop-color="var(--g-300)" />
@@ -233,54 +436,51 @@
             </path>
           </svg>
 
-          <h1 class="hero-title">Old Football Stars of Abomey</h1>
-          <p class="hero-sub">Développer le football jeune au Bénin</p>
-          <div class="hero-actions">
-            <a class="btn-primary" href="#tournament">Découvrir nos Tournois <span class="chevrons" aria-hidden="true"><span></span><span></span><span></span></span></a>
+          <h1 class="hero-title fade-in-up">Old Football Stars of Abomey</h1>
+          <p class="hero-sub fade-in-up">Développer le football jeune au Bénin</p>
+          <div class="hero-actions fade-in-up">
+            <a class="btn-primary chevrons-enhanced" href="#tournament">Découvrir nos Tournois <span class="chevrons" aria-hidden="true"><span></span><span></span><span></span></span></a>
             <a class="btn-ghost" href="#contact">Nous Contacter</a>
           </div>
-          <div style="width:80px;height:48px;margin-left:12px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(0,0,0,0.04)"></div>
+          <div style="width:80px;height:48px;margin-left:12px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:rgba(0,0,0,0.04)" class="scale-in"></div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
     <section id="about" class="reveal">
       <div class="container">
-        <h2 class="section-title">À Propos d'OFSA</h2>
+        <h2 class="section-title bounce-in">À Propos d'OFSA</h2>
         <div class="about-grid">
-          <div class="about-text">
+          <div class="about-text slide-in-left">
             <p>L'Old Football Stars of Abomey (OFSA) est une association dynamique d'anciens footballeurs dédiée à la promotion et au développement du football jeune au Bénin. Basée dans la ville de Cotonou, notre association s'engage à former la prochaine génération de talents footballistiques.</p>
             <p>Depuis notre création, nous organisons des événements sportifs de qualité, notamment notre tournoi phare "Football Talents Plus" qui rassemble les meilleurs jeunes talents U-15 de la région. Notre mission est de créer des opportunités pour les jeunes footballeurs tout en préservant l'esprit sportif et les valeurs du football.</p>
             <p>Nous croyons fermement que le sport est un vecteur essentiel de développement personnel et social. C'est pourquoi nous nous efforçons de mettre en place des programmes qui favorisent l'épanouissement des jeunes à travers le football.</p>
             <div class="about-photos">
-              <img src="images/about1.jpg" alt="Jeunes joueurs">
-             <!-- <img src="images/about2.jpg" alt="Stade Abomey">-->
+              <img src="images/about1.jpg" alt="Jeunes joueurs" class="fade-in-up">
             </div>
           </div>
-          <div class="about-image" aria-hidden="true">
-            <div class="logo-space"><img src="images/LOGO.png" alt="Logo OFSA espace" /></div>
+          <div class="about-image slide-in-right" aria-hidden="true">
+            <div class="logo-space"><img src="images/LOGO.png" alt="Logo OFSA espace" class="logo-main" /></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TOURNAMENT -->
     <section id="tournament" class="reveal">
       <div class="container">
-        <h2 class="section-title">Nos Tournois</h2>
+        <h2 class="section-title bounce-in">Nos Tournois</h2>
         <div class="tournament-grid">
-          <article class="card">
+          <article class="card fade-in-up">
             <h3>Football Talents Plus</h3>
             <p>Notre tournoi phare destiné aux jeunes de moins de 15 ans. Une compétition de haut niveau qui se déroule chaque année en décembre au stade de Goho d'Abomey. L'édition 2024 a marqué la 6ème édition de cet événement majeur.</p>
           </article>
 
-          <article class="card">
+          <article class="card fade-in-up" style="animation-delay: 0.2s;">
             <h3>Innovation Gaming</h3>
             <p>En partenariat avec Moov Africa Bénin, nous organisons des tournois de gaming lors de nos compétitions, permettant aux jeunes footballeurs de démontrer leurs talents sur console entre les matchs.</p>
           </article>
 
-          <article class="card">
+          <article class="card fade-in-up" style="animation-delay: 0.4s;">
             <h3>Formation & Développement</h3>
             <p>Nos programmes de formation continue permettent aux jeunes talents de développer leurs compétences techniques et tactiques tout au long de l'année, avec l'encadrement d'anciens joueurs expérimentés.</p>
           </article>
@@ -288,41 +488,39 @@
       </div>
     </section>
 
-    <!-- STATS -->
     <section id="stats" class="reveal">
       <div class="container">
-        <h2 class="section-title">Nos Réalisations</h2>
+        <h2 class="section-title bounce-in">Nos Réalisations</h2>
         <div class="stats-grid">
-          <div class="stat">
+          <div class="stat scale-in">
             <div class="stat-number">6</div>
             <div class="stat-label">Éditions du Tournoi</div>
           </div>
-          <div class="stat">
+          <div class="stat scale-in" style="animation-delay: 0.1s;">
             <div class="stat-number">200+</div>
             <div class="stat-label">Jeunes Suivis</div>
           </div>
-          <div class="stat">
+          <div class="stat scale-in" style="animation-delay: 0.2s;">
             <div class="stat-number">12</div>
             <div class="stat-label">Équipes Participantes</div>
           </div>
-          <div class="stat">
+          <div class="stat scale-in" style="animation-delay: 0.3s;">
             <div class="stat-number">100%</div>
             <div class="stat-label">Engagement</div>
           </div>
         </div>
         <div class="stats-photos">
-          <img src="images/stats1.jpg" alt="Public au stade">
-          <img src="images/stats2.jpg" alt="Jeunes joueurs motivés">
+          <img src="images/stats1.jpg" alt="Public au stade" class="fade-in-up">
+          <img src="images/stats2.jpg" alt="Jeunes joueurs motivés" class="fade-in-up" style="animation-delay: 0.2s;">
         </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact" class="reveal">
       <div class="container">
-        <h2 class="section-title">Contactez-Nous</h2>
+        <h2 class="section-title bounce-in">Contactez-Nous</h2>
         <div class="contact-grid">
-          <div class="contact-info">
+          <div class="contact-info slide-in-left">
             <h3>Informations de Contact</h3>
             <p><strong>Adresse :</strong> Cotonou, Département du Littoral, Bénin</p>
             <p><strong>Email :</strong> ofsafoot19@gmail.com</p>
@@ -330,12 +528,12 @@
             <p><strong>Lieu des Tournois :</strong> Stade Omnisport de Goho, Abomey</p>
             <p>Rejoignez-nous dans notre mission de développement du football jeune au Bénin. Que vous soyez un jeune talent, un parent, ou un passionné de football, nous sommes là pour vous accompagner.</p>
             <div class="contact-photos">
-              <img src="images/contact1.jpg" alt="Stade de Goho">
-              <img src="images/contact2.jpg" alt="Jeunes OFSA">
+              <img src="images/contact1.jpg" alt="Stade de Goho" class="fade-in-up">
+              <img src="images/contact2.jpg" alt="Jeunes OFSA" class="fade-in-up" style="animation-delay: 0.2s;">
             </div>
           </div>
 
-          <div class="contact-form">
+          <div class="contact-form slide-in-right">
             <form id="contactForm">
               <div class="form-group">
                 <label for="name">Nom Complet</label>
@@ -364,7 +562,7 @@
 
   </main>
 
-  <footer>
+  <footer class="fade-in-up">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-section">
@@ -396,9 +594,6 @@
   </footer>
 
   <script>
-    // ----------------------
-    // THEME TOGGLE (avec sauvegarde)
-    // ----------------------
     const themeToggle = document.getElementById('themeToggle');
     const root = document.body;
     function setTheme(theme){
@@ -410,9 +605,23 @@
     const saved = localStorage.getItem('ofsa_theme') || 'light';
     setTheme(saved);
 
-    // ----------------------
-    // REVEAL ON SCROLL (IntersectionObserver)
-    // ----------------------
+    function createFireflies() {
+      const container = document.querySelector('.floating-bubbles');
+      const fireflyCount = 25;
+      
+      for (let i = 0; i < fireflyCount; i++) {
+        const firefly = document.createElement('div');
+        firefly.className = 'firefly';
+        firefly.style.left = Math.random() * 100 + '%';
+        firefly.style.top = Math.random() * 100 + '%';
+        firefly.style.animationDelay = Math.random() * 8 + 's';
+        firefly.style.animationDuration = (Math.random() * 4 + 6) + 's';
+        container.appendChild(firefly);
+      }
+    }
+    
+    createFireflies();
+
     const observer = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(e.isIntersecting) e.target.classList.add('show');
@@ -420,19 +629,37 @@
     },{threshold:0.12});
     document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-    // ----------------------
-    // CONTACT FORM
-    // ----------------------
+    const animatedObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right, .scale-in, .bounce-in').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      animatedObserver.observe(el);
+    });
+
     const contactForm = document.getElementById('contactForm');
     contactForm.addEventListener('submit', e=>{
       e.preventDefault();
+      
+      const submitBtn = contactForm.querySelector('.submit');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = '✓ Message envoyé !';
+      submitBtn.style.background = 'linear-gradient(90deg, #28a745, #20c997)';
+      
+      setTimeout(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.style.background = '';
+        contactForm.reset();
+      }, 2000);
+      
       alert('Merci pour votre message !');
-      contactForm.reset();
     });
 
-    // ----------------------
-    // HERO PARALLAX (mouse)
-    // ----------------------
     const hero = document.querySelector('.hero');
     if(hero){
       hero.addEventListener('mousemove', (ev)=>{
@@ -440,17 +667,34 @@
         const x = (ev.clientX - rect.left) / rect.width - 0.5;
         const y = (ev.clientY - rect.top) / rect.height - 0.5;
         hero.style.transform = `translate3d(${x*6}px,${y*4}px,0)`;
+        
+        const bubbles = document.querySelectorAll('.bubble');
+        bubbles.forEach((bubble, index) => {
+          const bubbleRect = bubble.getBoundingClientRect();
+          const distance = Math.sqrt(
+            Math.pow(ev.clientX - (bubbleRect.left + bubbleRect.width/2), 2) + 
+            Math.pow(ev.clientY - (bubbleRect.top + bubbleRect.height/2), 2)
+          );
+          
+          if (distance < 100) {
+            bubble.style.transform = `scale(${1.2 + (100-distance)/100})`;
+          } else {
+            bubble.style.transform = 'scale(1)';
+          }
+        });
+        
         clearTimeout(hero.dataset.tout);
-        hero.dataset.tout = setTimeout(()=>hero.style.transform='none',1200);
+        hero.dataset.tout = setTimeout(()=>{
+          hero.style.transform='none';
+          bubbles.forEach(bubble => bubble.style.transform = 'scale(1)');
+        },1200);
       });
     }
 
-    // ----------------------
-    // RIPPLE ON PRIMARY BUTTONS
-    // ----------------------
     document.addEventListener('click', function(e){
       const btn = e.target.closest('.btn-primary, .btn-ghost, .cta');
       if(!btn) return;
+      
       const rect = btn.getBoundingClientRect();
       const r = document.createElement('span');
       r.className='ripple';
@@ -462,29 +706,124 @@
       r.style.transition = 'transform 600ms cubic-bezier(.2,.9,.2,1),opacity 600ms';
       btn.style.position = 'relative';
       btn.appendChild(r);
+      
       requestAnimationFrame(()=>{r.style.transform='scale(1)'; r.style.opacity='0';});
       setTimeout(()=>r.remove(),700);
+      
+      btn.style.transform = 'scale(0.98)';
+      setTimeout(() => btn.style.transform = '', 150);
     });
 
-    // ----------------------
-    // CARD TILT MICRO-INTERACTION
-    // ----------------------
     document.querySelectorAll('.card').forEach(card=>{
       card.addEventListener('mousemove', e=>{
         const rect=card.getBoundingClientRect();
         const x = (e.clientX - rect.left)/rect.width - 0.5;
         const y = (e.clientY - rect.top)/rect.height - 0.5;
-        const rotX = (-y)*8; const rotY = x*8;
+        const rotX = (-y)*8; 
+        const rotY = x*8;
         card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(6px)`;
+        card.style.boxShadow = `${x*10}px ${y*10}px 50px rgba(30,169,65,0.15)`;
       });
-      card.addEventListener('mouseleave', ()=>{card.style.transform='none'});
+      
+      card.addEventListener('mouseleave', ()=>{
+        card.style.transform='none';
+        card.style.boxShadow='';
+      });
+      
+      card.addEventListener('mouseenter', ()=>{
+        card.style.transition = 'none';
+      });
+      
+      card.addEventListener('mouseleave', ()=>{
+        card.style.transition = 'transform 400ms cubic-bezier(.2,.9,.2,1), box-shadow 400ms';
+      });
     });
 
-    // ----------------------
-    // accessibility: keyboard support
-    // ----------------------
+    const logoMain = document.querySelector('.logo-main');
+    if (logoMain) {
+      logoMain.addEventListener('click', () => {
+        logoMain.style.animation = 'none';
+        setTimeout(() => {
+          logoMain.style.animation = 'logoHover 0.6s ease-out forwards';
+          setTimeout(() => {
+            logoMain.style.animation = 'logoFloat 4s ease-in-out infinite';
+          }, 600);
+        }, 10);
+      });
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const statNumbers = entry.target.querySelectorAll('.stat-number');
+          statNumbers.forEach((statNumber, index) => {
+            const targetText = statNumber.textContent;
+            const isPlus = targetText.includes('+');
+            const isPercent = targetText.includes('%');
+            const targetValue = parseInt(targetText.replace(/[+%]/g, ''));
+            
+            let currentValue = 0;
+            const increment = targetValue / 30;
+            
+            const countAnimation = () => {
+              currentValue += increment;
+              if (currentValue < targetValue) {
+                statNumber.textContent = Math.ceil(currentValue) + (isPlus ? '+' : '') + (isPercent ? '%' : '');
+                requestAnimationFrame(countAnimation);
+              } else {
+                statNumber.textContent = targetText;
+              }
+            };
+            
+            setTimeout(() => countAnimation(), index * 100);
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stats-grid').forEach(el => statsObserver.observe(el));
+
+    if (window.innerWidth < 768) {
+      document.querySelectorAll('.bubble').forEach((bubble, index) => {
+        if (index > 5) bubble.remove();
+      });
+    }
+
     document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape') document.querySelector('.nav-links')?.blur?.();
+      if(e.key === 'Escape') {
+        document.querySelector('.nav-links')?.blur?.();
+        if (e.altKey) {
+          document.body.style.animation = 'none';
+          document.querySelectorAll('*').forEach(el => el.style.animation = 'none');
+        }
+      }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    const bubbleObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        } else {
+          entry.target.style.animationPlayState = 'paused';
+        }
+      });
+    }, { rootMargin: '50px' });
+
+    document.querySelectorAll('.bubble').forEach(bubble => {
+      bubbleObserver.observe(bubble);
     });
   </script>
 </body>
