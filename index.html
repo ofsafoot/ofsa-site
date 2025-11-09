@@ -19,7 +19,7 @@
       --muted: rgba(0,0,0,0.6);
       --glass: rgba(255,255,255,0.06);
       --card-glow: 0 20px 50px rgba(30,169,65,0.08);
-      --hero-img: url('images/hero-light.jpg');
+      --hero-img: url('images/hero-light.webp');
     }
     [data-theme="dark"]{
       --g-900: #001508;
@@ -34,13 +34,11 @@
       --muted: rgba(255,255,255,0.6);
       --glass: rgba(0,0,0,0.26);
       --card-glow: 0 20px 50px rgba(30,169,65,0.18);
-      --hero-img: url('images/hero-dark.jpg');
+      --hero-img: url('images/hero-dark.webp');
     }
 
-    /* ========== existing animations + site styles (kept) ========== */
     .floating-bubbles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
     .bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(30,169,65,0.08), rgba(30,169,65,0.03)); animation: float 15s infinite linear; opacity: 0.6; }
-    /* ... (bubbles nth-child etc kept) ... */
     @keyframes float { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 5% { opacity: 0.6; } 95% { opacity: 0.6; } 100% { transform: translateY(-100px) rotate(360deg); opacity: 0; } }
     [data-theme="dark"] .bubble { background: radial-gradient(circle at 30% 30%, rgba(30,169,65,0.12), rgba(30,169,65,0.04)); }
 
@@ -114,9 +112,10 @@
 
     .contact-info{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(30,169,65,0.03), rgba(255,255,255,0.01));border-left:4px solid var(--g-500)}
 
-    footer{padding:40px 0;border-top:2px solid var(--g-700);margin-top:20px}
+   footer{padding:40px 0;border-top:2px solid var(--g-700);margin-top:20px}
     .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
     .footer-section h4{color:var(--g-500)}
+    footer .container > p:last-child{text-align:center}
 
     @media(max-width:980px){
       .about-grid{grid-template-columns:1fr}
@@ -141,7 +140,6 @@
     .about-photos, .stats-photos, .contact-photos { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
     .about-photos img, .stats-photos img, .contact-photos img { width:100%; max-width:320px; height:200px; object-fit:cover; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.15); }
 
-    /* ========== NEW: Album section styles ========== */
     #album .album-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -173,13 +171,10 @@
       will-change: transform;
     }
 
-    /* slightly enlarged by default for presence */
     #album .album-item img.default-scale { transform: scale(1.04); }
 
-    /* when pressed, we keep scaling via JS but add a small transition when released */
     #album .album-item img.releasing { transition: transform 450ms cubic-bezier(.2,.9,.2,1); }
 
-    /* Caption / overlay */
     #album .caption {
       position: absolute;
       left: 12px; bottom: 12px;
@@ -187,12 +182,10 @@
       color: white; font-weight:700; padding:6px 10px; border-radius:999px; font-size:13px; backdrop-filter: blur(4px);
     }
 
-    /* responsive columns */
     @media (max-width:1100px) { #album .album-grid { grid-template-columns: repeat(3, 1fr); } #album .album-item img { height:200px; } }
     @media (max-width:700px) { #album .album-grid { grid-template-columns: repeat(2, 1fr); } #album .album-item img { height:180px; } }
     @media (max-width:420px) { #album .album-grid { grid-template-columns: 1fr; } #album .album-item img { height:220px; } }
 
-    /* Lightbox */
     .lightbox {
       position: fixed; inset: 0; display: none; align-items:center; justify-content:center; z-index:2000;
       background: rgba(0,0,0,0.85); padding: 20px;
@@ -224,7 +217,7 @@
     <div class="container">
       <nav>
         <div class="logo-wrap fade-in-up">
-          <img src="images/LOGO.png" alt="Logo OFSA" class="logo-img">
+          <img src="images/LOGO.webp" alt="Logo OFSA" class="logo-img">
           <div>
             <div class="brand">OFSA</div>
             <div style="font-size:12px;color:var(--muted)">Old Football Stars of Abomey</div>
@@ -249,7 +242,6 @@
   </header>
 
   <main>
-    <!-- === existing sections preserved === -->
     <section id="accueil" class="hero">
       <div class="hero-grid container reveal">
         <div>
@@ -285,11 +277,11 @@
             <p>Depuis notre création, nous organisons des événements sportifs de qualité, notamment notre tournoi phare "Football Talents Plus" qui rassemble les meilleurs jeunes talents U-15 de la région. Notre mission est de créer des opportunités pour les jeunes footballeurs tout en préservant l'esprit sportif et les valeurs du football.</p>
             <p>Nous croyons fermement que le sport est un vecteur essentiel de développement personnel et social. C'est pourquoi nous nous efforçons de mettre en place des programmes qui favorisent l'épanouissement des jeunes à travers le football.</p>
             <div class="about-photos">
-              <img src="images/about1.jpg" alt="Jeunes joueurs" class="fade-in-up">
+              <img src="images/about1.webp" alt="Jeunes joueurs" class="fade-in-up">
             </div>
           </div>
           <div class="about-image slide-in-right" aria-hidden="true">
-            <div class="logo-space"><img src="images/LOGO.png" alt="Logo OFSA espace" class="logo-main" /></div>
+            <div class="logo-space"><img src="images/LOGO.webp" alt="Logo OFSA espace" class="logo-main" /></div>
           </div>
         </div>
       </div>
@@ -339,13 +331,12 @@
           </div>
         </div>
         <div class="stats-photos">
-          <img src="images/stats1.jpg" alt="Public au stade" class="fade-in-up">
-          <img src="images/stats2.jpg" alt="Jeunes joueurs motivés" class="fade-in-up" style="animation-delay: 0.2s;">
+          <img src="images/stats1.webp" alt="Public au stade" class="fade-in-up">
+          <img src="images/stats2.webp" alt="Jeunes joueurs motivés" class="fade-in-up" style="animation-delay: 0.2s;">
         </div>
       </div>
     </section>
 
-    <!-- ========== NEW: Album Section ========== -->
     <section id="album" class="reveal">
       <div class="container">
         <h2 class="section-title bounce-in">Album</h2>
@@ -353,77 +344,77 @@
 
         <div class="album-grid" id="albumGrid" aria-live="polite">
           <div class="album-item" tabindex="0">
-            <img src="images/album1.jpg" alt="Album 1" loading="lazy" class="default-scale">
+            <img src="images/album1.webp" alt="Album 1" loading="lazy" class="default-scale">
             <div class="caption">Album 1</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album2.jpg" alt="Album 2" loading="lazy" class="default-scale">
+            <img src="images/album2.webp" alt="Album 2" loading="lazy" class="default-scale">
             <div class="caption">Album 2</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album3.jpg" alt="Album 3" loading="lazy" class="default-scale">
+            <img src="images/album3.webp" alt="Album 3" loading="lazy" class="default-scale">
             <div class="caption">Album 3</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album4.jpg" alt="Album 4" loading="lazy" class="default-scale">
+            <img src="images/album4.webp" alt="Album 4" loading="lazy" class="default-scale">
             <div class="caption">Album 4</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album5.jpg" alt="Album 5" loading="lazy" class="default-scale">
+            <img src="images/album5.webp" alt="Album 5" loading="lazy" class="default-scale">
             <div class="caption">Album 5</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album6.jpg" alt="Album 6" loading="lazy" class="default-scale">
+            <img src="images/album6.webp" alt="Album 6" loading="lazy" class="default-scale">
             <div class="caption">Album 6</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album7.jpg" alt="Album 7" loading="lazy" class="default-scale">
+            <img src="images/album7.webp" alt="Album 7" loading="lazy" class="default-scale">
             <div class="caption">Album 7</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album8.jpg" alt="Album 8" loading="lazy" class="default-scale">
+            <img src="images/album8.webp" alt="Album 8" loading="lazy" class="default-scale">
             <div class="caption">Album 8</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album9.jpg" alt="Album 9" loading="lazy" class="default-scale">
+            <img src="images/album9.webp" alt="Album 9" loading="lazy" class="default-scale">
             <div class="caption">Album 9</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album10.jpg" alt="Album 10" loading="lazy" class="default-scale">
+            <img src="images/album10.webp" alt="Album 10" loading="lazy" class="default-scale">
             <div class="caption">Album 10</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album11.jpg" alt="Album 11" loading="lazy" class="default-scale">
+            <img src="images/album11.webp" alt="Album 11" loading="lazy" class="default-scale">
             <div class="caption">Album 11</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album12.jpg" alt="Album 12" loading="lazy" class="default-scale">
+            <img src="images/album12.webp" alt="Album 12" loading="lazy" class="default-scale">
             <div class="caption">Album 12</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album13.jpg" alt="Album 13" loading="lazy" class="default-scale">
+            <img src="images/album13.webp" alt="Album 13" loading="lazy" class="default-scale">
             <div class="caption">Album 13</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album14.jpg" alt="Album 14" loading="lazy" class="default-scale">
+            <img src="images/album14.webp" alt="Album 14" loading="lazy" class="default-scale">
             <div class="caption">Album 14</div>
           </div>
 
           <div class="album-item" tabindex="0">
-            <img src="images/album15.jpg" alt="Album 15" loading="lazy" class="default-scale">
+            <img src="images/album15.webp" alt="Album 15" loading="lazy" class="default-scale">
             <div class="caption">Album 15</div>
           </div>
         </div>
@@ -443,8 +434,8 @@
           <p><strong>Lieu des Tournois :</strong> Stade Omnisport de Goho, Abomey</p>
           <p>Rejoignez-nous dans notre mission de développement du football jeune au Bénin. Que vous soyez un jeune talent, un parent, ou un passionné de football, nous sommes là pour vous accompagner.</p>
           <div class="contact-photos">
-            <img src="images/contact1.jpg" alt="Stade de Goho" class="fade-in-up">
-            <img src="images/contact2.jpg" alt="Jeunes OFSA" class="fade-in-up" style="animation-delay: 0.2s;">
+            <img src="images/contact1.webp" alt="Stade de Goho" class="fade-in-up">
+            <img src="images/contact2.webp" alt="Jeunes OFSA" class="fade-in-up" style="animation-delay: 0.2s;">
           </div>
         </div>
       </div>
@@ -456,23 +447,31 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-section">
-          <h4>OFSA</h4>
-          <p>Old Football Stars of Abomey - Passion et dévouement au service du football jeune.</p>
-          <div class="social-links">
-            <a href="#" aria-label="Site web">🌐</a>
-            <a href="#" aria-label="Instagram">📷</a>
-            <a href="#" aria-label="TikTok">🎵</a>
-            <a href="#" aria-label="YouTube">▶</a>
-          </div>
-        </div>
         <div class="footer-section">
-          <h4>Liens Rapides</h4>
-          <p><a href="#accueil">Accueil</a></p>
-          <p><a href="#about">À Propos</a></p>
-          <p><a href="#tournament">Tournois</a></p>
-          <p><a href="#album">Album</a></p>
-          <p><a href="#contact">Contact</a></p>
-        </div>
+          <h4>OFSA</h4>
+          <img src="images/LOGO.webp" alt="Logo OFSA" style="width:80px;height:80px;border-radius:8px;margin-bottom:12px;">
+          <div class="social-links">
+            <a href="#" aria-label="Facebook" title="Facebook">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Instagram" title="Instagram">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="TikTok" title="TikTok">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="YouTube" title="YouTube">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+          </div>
         <div class="footer-section">
           <h4>Partenaires</h4>
           <p>Moov Africa Bénin</p>
@@ -484,7 +483,6 @@
     </div>
   </footer>
 
-  <!-- Lightbox element (reused by JS) -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
     <button class="close focus-outline" id="lbClose" aria-label="Fermer (Esc)">✕</button>
     <img id="lbImg" src="" alt="">
@@ -492,7 +490,6 @@
   </div>
 
   <script>
-    /* ========== preserved JS (theme, interactions, animations) ========== */
     const themeToggle = document.getElementById('themeToggle');
     const root = document.body;
     function setTheme(theme){
@@ -655,7 +652,6 @@
           document.body.style.animation = 'none';
           document.querySelectorAll('*').forEach(el => el.style.animation = 'none');
         }
-        // close lightbox if open
         const lb = document.getElementById('lightbox');
         if (lb && lb.classList.contains('show')) closeLightbox();
       }
@@ -683,7 +679,6 @@
     document.querySelectorAll('.bubble').forEach(bubble => { bubbleObserver.observe(bubble); });
 
 
-    /* ========== NEW: Album JS: zoom while pressed + lightbox ========== */
     (function(){
       const albumGrid = document.getElementById('albumGrid');
       const items = albumGrid.querySelectorAll('.album-item');
@@ -692,13 +687,12 @@
       const lbInfo = document.getElementById('lbInfo');
       const lbClose = document.getElementById('lbClose');
 
-      // common function to animate continuous zoom while pressed
       function createPressZoom(img) {
         let rafId = null;
         let scale = parseFloat(getComputedStyle(img).transform.split(',')[0] === 'matrix' ? 1 : 1) || 1;
-        const baseScale = 1.04; // default appearance
-        const maxScale = 1.8; // cap
-        const speed = 0.0025; // increase per ms (small)
+        const baseScale = 1.04;
+        const maxScale = 1.8;
+        const speed = 0.0025;
         let lastTime = null;
         let pressed = false;
 
@@ -732,13 +726,11 @@
         return { start, stop };
       }
 
-      // Handle each album item: mousedown / mouseup / touch
       items.forEach((item, idx) => {
         const img = item.querySelector('img');
         const caption = item.querySelector('.caption');
         const zoomController = createPressZoom(img);
 
-        // pointer events (works for mouse & stylus)
         item.addEventListener('pointerdown', (ev) => {
           // only left-click / primary touch
           if (ev.button !== undefined && ev.button !== 0) return;
@@ -746,31 +738,25 @@
           zoomController.start();
         });
 
-        // pointerup and pointercancel and pointerleave stop zoom
         item.addEventListener('pointerup', (ev) => { zoomController.stop(); });
         item.addEventListener('pointercancel', (ev) => { zoomController.stop(); });
         item.addEventListener('pointerleave', (ev) => { zoomController.stop(); });
 
-        // keyboard accessibility: Enter opens lightbox, Space behaves like click-hold (brief)
         item.addEventListener('keydown', (ev) => {
           if (ev.key === 'Enter') {
             openLightbox(img.src, caption.textContent || `Photo ${idx+1}`);
           } else if (ev.key === ' ') {
             ev.preventDefault();
-            // simulate small press
             zoomController.start();
             setTimeout(()=> zoomController.stop(), 500);
           }
         });
 
-        // single click opens lightbox (desktop/touch quick tap)
         item.addEventListener('click', (ev) => {
-          // open after release
           openLightbox(img.src, caption.textContent || `Photo ${idx+1}`);
         });
       });
 
-      // open / close lightbox functions
       function openLightbox(src, info) {
         lbImg.src = src;
         lbImg.style.transform = 'scale(1)';
@@ -778,9 +764,7 @@
         lightbox.classList.add('show');
         lightbox.setAttribute('aria-hidden', 'false');
 
-        // add press zoom on lightbox image too
         const ctrl = createPressZoom(lbImg);
-        // pointer handling for lightbox image
         lbImg.addEventListener('pointerdown', lbPointerDown);
         lbImg.addEventListener('pointerup', lbPointerUp);
         lbImg.addEventListener('pointercancel', lbPointerUp);
@@ -789,7 +773,6 @@
         function lbPointerDown(e) { if (e.button !== undefined && e.button !== 0) return; e.preventDefault(); ctrl.start(); }
         function lbPointerUp(e) { ctrl.stop(); }
 
-        // remove listeners on close
         function cleanup() {
           lbImg.removeEventListener('pointerdown', lbPointerDown);
           lbImg.removeEventListener('pointerup', lbPointerUp);
@@ -797,9 +780,7 @@
           lbImg.removeEventListener('pointerleave', lbPointerUp);
         }
 
-        // attach close action
         lbClose.onclick = () => { cleanup(); closeLightbox(); };
-        // close when clicking outside image
         lightbox.onclick = (ev) => {
           if (ev.target === lightbox) { cleanup(); closeLightbox(); }
         };
@@ -813,7 +794,6 @@
         document.getElementById('lbInfo').textContent = '';
       }
 
-      // expose close to global for ESC handler earlier
       window.closeLightbox = closeLightbox;
     })();
   </script>
