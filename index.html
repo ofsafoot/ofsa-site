@@ -112,14 +112,7 @@
     .stat{padding:22px;border-radius:12px;text-align:center;background:linear-gradient(180deg, rgba(30,169,65,0.04), rgba(0,0,0,0.02));}
     .stat-number{font-size:34px;font-weight:800;color:var(--g-500)}
 
-    .contact-grid{display:grid;grid-template-columns:1fr 420px;gap:28px}
     .contact-info{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(30,169,65,0.03), rgba(255,255,255,0.01));border-left:4px solid var(--g-500)}
-    .contact-form{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(0,0,0,0.02), rgba(255,255,255,0.02));}
-    .form-group{margin-bottom:12px}
-    label{display:block;margin-bottom:6px;font-weight:700;color:var(--g-700)}
-    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:transparent;color:var(--text);min-height:46px}
-    textarea{min-height:120px}
-    .submit{display:inline-block;margin-top:8px}
 
     footer{padding:40px 0;border-top:2px solid var(--g-700);margin-top:20px}
     .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
@@ -127,7 +120,6 @@
 
     @media(max-width:980px){
       .about-grid{grid-template-columns:1fr}
-      .contact-grid{grid-template-columns:1fr}
       header{padding:8px 0}
     }
     @media(max-width:640px){
@@ -245,7 +237,7 @@
             <a href="#about">À Propos</a>
             <a href="#tournament">Tournoi</a>
             <a href="#stats">Statistiques</a>
-            <a href="#album">Album</a> <!-- <-- nouveau lien -->
+            <a href="#album">Album</a>
             <a href="#contact">Contact</a>
           </div>
 
@@ -360,8 +352,6 @@
         <p style="text-align:center;color:var(--muted);margin-bottom:18px"></p>
 
         <div class="album-grid" id="albumGrid" aria-live="polite">
-          <!-- 15 images minimum : adaptez les sources selon vos fichiers -->
-          <!-- Remplacez images/album1.jpg ... images/album15.jpg par vos images réelles -->
           <div class="album-item" tabindex="0">
             <img src="images/album1.jpg" alt="Album 1" loading="lazy" class="default-scale">
             <div class="caption">Album 1</div>
@@ -445,42 +435,16 @@
     <section id="contact" class="reveal">
       <div class="container">
         <h2 class="section-title bounce-in">Contactez-Nous</h2>
-        <div class="contact-grid">
-          <div class="contact-info slide-in-left">
-            <h3>Informations de Contact</h3>
-            <p><strong>Adresse :</strong> Cotonou, Département du Littoral, Bénin</p>
-            <p><strong>Email :</strong> ofsafoot19@gmail.com</p>
-            <p><strong>Téléphone :</strong>+229 96 12 33 14 / +229 96 56 56 00</p>
-            <p><strong>Lieu des Tournois :</strong> Stade Omnisport de Goho, Abomey</p>
-            <p>Rejoignez-nous dans notre mission de développement du football jeune au Bénin. Que vous soyez un jeune talent, un parent, ou un passionné de football, nous sommes là pour vous accompagner.</p>
-            <div class="contact-photos">
-              <img src="images/contact1.jpg" alt="Stade de Goho" class="fade-in-up">
-              <img src="images/contact2.jpg" alt="Jeunes OFSA" class="fade-in-up" style="animation-delay: 0.2s;">
-            </div>
-          </div>
-
-          <div class="contact-form slide-in-right">
-            <form id="contactForm">
-              <div class="form-group">
-                <label for="name">Nom Complet</label>
-                <input type="text" id="name" name="name" required>
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-              </div>
-              <div class="form-group">
-                <label for="phone">Téléphone</label>
-                <input type="tel" id="phone" name="phone">
-              </div>
-              <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" required></textarea>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="btn-primary submit">Envoyer le Message</button>
-              </div>
-            </form>
+        <div class="contact-info slide-in-left">
+          <h3>Informations de Contact</h3>
+          <p><strong>Adresse :</strong> Cotonou, Département du Littoral, Bénin</p>
+          <p><strong>Email :</strong> ofsafoot19@gmail.com</p>
+          <p><strong>Téléphone :</strong>+229 96 12 33 14 / +229 96 56 56 00</p>
+          <p><strong>Lieu des Tournois :</strong> Stade Omnisport de Goho, Abomey</p>
+          <p>Rejoignez-nous dans notre mission de développement du football jeune au Bénin. Que vous soyez un jeune talent, un parent, ou un passionné de football, nous sommes là pour vous accompagner.</p>
+          <div class="contact-photos">
+            <img src="images/contact1.jpg" alt="Stade de Goho" class="fade-in-up">
+            <img src="images/contact2.jpg" alt="Jeunes OFSA" class="fade-in-up" style="animation-delay: 0.2s;">
           </div>
         </div>
       </div>
@@ -573,21 +537,6 @@
     document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right, .scale-in, .bounce-in').forEach(el => {
       el.style.animationPlayState = 'paused';
       animatedObserver.observe(el);
-    });
-
-    const contactForm = document.getElementById('contactForm');
-    contactForm.addEventListener('submit', e=>{
-      e.preventDefault();
-      const submitBtn = contactForm.querySelector('.submit');
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = '✓ Message envoyé !';
-      submitBtn.style.background = 'linear-gradient(90deg, #28a745, #20c997)';
-      setTimeout(() => {
-        submitBtn.textContent = originalText;
-        submitBtn.style.background = '';
-        contactForm.reset();
-      }, 2000);
-      alert('Merci pour votre message !');
     });
 
     const hero = document.querySelector('.hero');
